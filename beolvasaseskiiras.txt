@@ -1,0 +1,37 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int db = 0;
+
+struct arvaltozas {
+	string datum;
+	string benzin;
+	string gazolaj;
+};
+
+int main()
+{
+	arvaltozas het[1000]; // A zárójelben levő szám minimum annyi kell legyen, ahány sor van a fájlban
+
+	ifstream be;
+	be.open("uzemanyag.txt");
+
+	while (be.good())
+	{
+		getline(be, het[db].datum, ';'); // Adatok beolvasása pontosvesszős elválasztásnál
+		getline(be, het[db].benzin, ';');
+		getline(be, het[db].gazolaj, '\n'); // Az utolsó adat után nem pontosvessző van, hanem új sor ezért '\n'
+		db++;
+	}
+
+	for (int i = 0; i < db; i++)
+	{
+		cout << het[i].datum << "\t" << het[i].benzin << "\t" << het[i].gazolaj << endl;
+	}
+
+	system("pause");
+	return 0;
+}
